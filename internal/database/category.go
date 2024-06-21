@@ -25,6 +25,15 @@ func (c *Category) Create(name, description string) (Category, error) {
 	return Category{ID: id, Name: name, Description: description}, nil
 }
 
+func (c *Category) FindById(id string) (Category, error) {
+	row := c.db.QueryRow("SELECT id, name, description FROM categories WHERE id = $1", id)
+	var category Category
+	if err := row.Scan(&category.ID, &category.Name, &category.Description); err != nil {
+		return Category{}, err
+	}
+	return category, nil
+}
+
 func (c *Category) FindAll() ([]Category, error) {
 	rows, err := c.db.Query("SELECT id, name, description FROM categories")
 	if err != nil {

@@ -6,17 +6,11 @@ It also uses [gqlgen](https://gqlgen.com) for GraphQL code gen.
 
 ## Setup
 
-To set up the database, run the following commands:
+To set up the database and tables, run the following command:
 
 
 ```bash
-sqlite3 ./data.db
-```
-
-Create tables:
-
-```sql
-create table categories (id string, name string, description string);
+make setup
 ```
 
 ## Running the server
@@ -24,7 +18,7 @@ create table categories (id string, name string, description string);
 To run the server, run the following command:
 
 ```bash
-go run cmd/server/main.go
+make start
 ```
 
 Access the GraphQL playground at http://localhost:8080
