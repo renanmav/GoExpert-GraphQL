@@ -50,3 +50,12 @@ func (c *Category) FindAll() ([]Category, error) {
 	}
 	return categories, nil
 }
+
+func (c *Category) FindByCourseID(courseID string) (Category, error) {
+	row := c.db.QueryRow("SELECT c.id, c.name, c.description FROM categories c JOIN courses co ON c.id = co.category_id WHERE co.id = $1", courseID)
+	var category Category
+	if err := row.Scan(&category.ID, &category.Name, &category.Description); err != nil {
+		return Category{}, err
+	}
+	return category, nil
+}
